@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+                }
+            }
+        </script>
+
+        <script type="module">
+            import { ThreexGrass } from "../ThreexGrass.js"
+            import { ThreexDemo } from "./ThreexDemo.js"
+
+            let demo = new ThreexDemo();
+        </script>
+    </head>
+
+    <body style="margin: 0px; overflow: hidden"></body>
+</html>
