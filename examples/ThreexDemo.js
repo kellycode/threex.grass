@@ -25,6 +25,9 @@ export class ThreexDemo {
         this.textureLoader = new THREE.TextureLoader();
         this.textureLoaderB = new THREE.TextureLoader();
 
+        let planeWidth = 0.4;
+        let planeHeight = 0.2;
+
         this.loadTextures();
     }
 
@@ -69,7 +72,7 @@ export class ThreexDemo {
         this.camera.position.z = 1;
 
         // add a ambient light
-        let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+        let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         this.scene.add(ambientLight);
 
         // add a light in front
@@ -83,65 +86,74 @@ export class ThreexDemo {
         this.scene.add(directionalLightB);
 
         // ground
-        let textureUrl = this.baseUrl + "images/grass_terrain.jpg";
+        let textureUrl = this.baseUrl + "images/grass_map.png";
         let texture = this.textureLoaderB.load(textureUrl);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.x = 20;
-        texture.repeat.y = 20;
-        texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+        let normalUrl = this.baseUrl + "images/grass_normal.png";
+        let normal = this.textureLoaderB.load(normalUrl);
+        texture.wrapS = normal.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = normal.wrapT = THREE.RepeatWrapping;
+        texture.repeat.x = normal.repeat.x = 20;
+        texture.repeat.y = normal.repeat.y = 20;
+        texture.anisotropy = normal.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
         // ground mesh
         let geometry = new THREE.PlaneGeometry(20, 20);
         let material = new THREE.MeshPhongMaterial({
             map: texture,
+            normalMap: normal
         });
         let ground = new THREE.Mesh(geometry, material);
         ground.rotateX(-Math.PI / 2);
         this.scene.add(ground);
 
+        // PLANTS
+
         // grass01
         let nTufts_g1 = 5000;
         let positions_g1 = new Array(nTufts_g1);
+        let size_g1 = {w: 0.4, h: 0.2, y: 0.1};
         for (let i = 0; i < nTufts_g1; i++) {
             let position = new THREE.Vector3();
             position.x = (Math.random() - 0.5) * 20;
             position.z = (Math.random() - 0.5) * 20;
             positions_g1[i] = position;
         }
-        ThreexGrass.createGrassTufts(this.scene, positions_g1, textures["grass01.png"]);
+        ThreexGrass.createGrassTufts(this.scene, positions_g1, textures["grass01.png"], size_g1);
 
         // grass02
         let nTufts_g2 = 5000;
         let positions_g2 = new Array(nTufts_g2);
+        let size_g2 = {w: 0.4, h: 0.2, y: 0.1};
         for (let i = 0; i < nTufts_g2; i++) {
             let position = new THREE.Vector3();
             position.x = (Math.random() - 0.5) * 20;
             position.z = (Math.random() - 0.5) * 20;
             positions_g2[i] = position;
         }
-        ThreexGrass.createGrassTufts(this.scene, positions_g2, textures["grass02.png"]);
+        ThreexGrass.createGrassTufts(this.scene, positions_g2, textures["grass02.png"], size_g2);
 
         // flowers01
         let nTufts_f1 = 100;
         let positions_f1 = new Array(nTufts_f1);
+        let size_f1 = {w: 0.4, h: 0.2, y: 0.1};
         for (let i = 0; i < nTufts_f1; i++) {
             let position = new THREE.Vector3();
             position.x = (Math.random() - 0.5) * 20;
             position.z = (Math.random() - 0.5) * 20;
             positions_f1[i] = position;
         }
-        ThreexGrass.createGrassTufts(this.scene, positions_f1, textures["flowers01.png"]);
+        ThreexGrass.createGrassTufts(this.scene, positions_f1, textures["flowers01.png"], size_f1);
 
         // flowers02
         let nTufts_f2 = 100;
         let positions_f2 = new Array(nTufts_f2);
+        let size_f2 = {w: 0.4, h: 0.2, y: 0.1};
         for (let i = 0; i < nTufts_f2; i++) {
             let position = new THREE.Vector3();
             position.x = (Math.random() - 0.5) * 20;
             position.z = (Math.random() - 0.5) * 20;
             positions_f2[i] = position;
         }
-        ThreexGrass.createGrassTufts(this.scene, positions_f2, textures["flowers02.png"]);
+        ThreexGrass.createGrassTufts(this.scene, positions_f2, textures["flowers02.png"], size_f2);
 
         // for camera annoyance
         document.addEventListener(

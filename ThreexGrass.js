@@ -1,11 +1,9 @@
 import * as THREE from "three";
 
 export class ThreexGrass {
-    static createGrassTufts(scene, positions, texture) {
+    static createGrassTufts(scene, positions, texture, size) {
         // create the initial geometry
-        let planeWidth = 0.4;
-        let planeHeight = 0.2;
-        let geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+        let geometry = new THREE.PlaneGeometry(size.w, size.h);
 
         let material = new THREE.MeshPhongMaterial({
             map: texture,
@@ -18,7 +16,7 @@ export class ThreexGrass {
 
         for (let i = 0; i < positions.length; i++) {
             let position = positions[i];
-            position.y = planeHeight/2;
+            position.y = size.y;
             let baseAngle = Math.PI * 2 * Math.random();
 
             let nPlanes = 2;
